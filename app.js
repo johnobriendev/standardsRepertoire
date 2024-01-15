@@ -1,0 +1,51 @@
+const rep = [
+    { name: "Embraceable You", composer: "George Gershwin" },
+    { name: "Lush Life", composer: "Billy Strayhorn" },
+    { name: "Bemsha Swing", composer: "Thelonious Monk" },
+    { name: "Naima", composer: "John Coltrane" }
+];
+
+const display = document.querySelector(".bottom");
+
+const nameInput = document.querySelector(".standard");
+const composerInput = document.querySelector('.composer');
+const button = document.querySelector('.button');
+
+///////FUNCTIONS/////////
+const render = () =>{
+    display.innerHTML = '';
+
+    rep.forEach((song, index) => {
+        const songContainer = document.createElement("div");
+        songContainer.classList.add("container");
+        
+        const deleteButton = document.createElement('button');
+        deleteButton.classList.add("delete-btn");
+        deleteButton.innerText = "Delete";
+        deleteButton.addEventListener("click", event =>{
+            rep.splice(index,1);
+            render();
+        })
+
+        
+        
+        const newStandard = document.createElement("h3");
+        newStandard.innerText = `${song.name} by ${song.composer}`;
+       
+        songContainer.appendChild(newStandard);
+        songContainer.appendChild(deleteButton);
+       
+        display.appendChild(songContainer);
+    })
+}
+
+const createStandard = () =>{
+    const name = nameInput.value;
+    const composer = composerInput.value;
+    const newStandard = { name, composer };
+    rep.push(newStandard);
+    render();
+}
+
+render();
+button.addEventListener("click", createStandard);
